@@ -1,4 +1,4 @@
-package com.tec.desafio_sicredi.model;
+package com.tec.desafio_sicredi.model.pauta;
 
 import jakarta.persistence.*;
 

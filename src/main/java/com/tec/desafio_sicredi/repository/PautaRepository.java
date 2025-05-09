@@ -1,6 +1,6 @@
 package com.tec.desafio_sicredi.repository;
 
-import com.tec.desafio_sicredi.model.Pauta;
+import com.tec.desafio_sicredi.model.pauta.Pauta;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;

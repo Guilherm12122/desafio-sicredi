@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping
+@RequestMapping("pauta")
 public class PautaController {
 
     @Autowired
@@ -21,8 +21,6 @@ public class PautaController {
 
     @PostMapping
     public ResponseEntity<ApiResponse> postPauta(@RequestBody @Valid PautaDTO pautaDTO){
-
-        System.out.println(pautaDTO.getDescricao());
 
         pautaService.cadastrarPauta(pautaDTO);
 
