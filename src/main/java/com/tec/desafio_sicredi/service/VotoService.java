@@ -25,7 +25,7 @@ public class VotoService {
 
     public String obterResultadoVotacaoPauta(Long id_pauta){
 
-        pautaService.validarPauta(id_pauta);
+        pautaService.validarSePautaFechada(id_pauta);
 
         List<Boolean> resultados_votos = validarVotoPauta(id_pauta).stream()
                 .map(VotoDTO::getA_favor).toList();
