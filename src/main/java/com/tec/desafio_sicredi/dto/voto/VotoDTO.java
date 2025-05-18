@@ -1,4 +1,4 @@
-package com.tec.desafio_sicredi.dto;
+package com.tec.desafio_sicredi.dto.voto;
 
 public class VotoDTO {
 

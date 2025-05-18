@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -25,7 +26,6 @@ public class SessaoService {
 
         if (!verificarSessaoAberta(id_pauta)) {
 
-            System.out.println("SESSÃO ABERTA");
             Sessao sessao = new Sessao(id_pauta);
 
             sessoes.add(sessao);
@@ -33,7 +33,7 @@ public class SessaoService {
             scheduler.schedule(() ->{
                 sessoes.remove(sessao);
                 pautaService.fecharPautaById(id_pauta);
-            }, 30, TimeUnit.SECONDS);
+            }, 60, TimeUnit.SECONDS);
 
         } else {
             throw new SessaoJaAbertaPautaException("A sessão para essa pauta já está aberta !");
@@ -41,6 +41,6 @@ public class SessaoService {
     }
 
     public boolean verificarSessaoAberta(Long id_sessao){
-        return sessoes.stream().filter(s -> s.getId_pauta() == id_sessao).count() != 0;
+        return sessoes.stream().anyMatch(s -> Objects.equals(s.getId_pauta(), id_sessao));
     }
 }

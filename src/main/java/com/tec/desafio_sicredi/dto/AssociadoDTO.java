@@ -1,20 +1,14 @@
-package com.tec.desafio_sicredi.model.associado;
+package com.tec.desafio_sicredi.dto;
 
-import jakarta.persistence.*;
+public class AssociadoDTO {
 
-@Entity
-public class Associado {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    @Column(name = "nome")
     private String nome;
 
-    public Associado() {
+    public AssociadoDTO() {
     }
 
-    public Associado(Long id, String nome) {
+    public AssociadoDTO(Long id, String nome) {
         this.id = id;
         this.nome = nome;
     }

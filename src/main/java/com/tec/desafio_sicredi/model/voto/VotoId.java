@@ -13,6 +13,30 @@ public class VotoId implements Serializable {
     @Column(name = "pauta_id")
     private Long pauta_id;
 
+    public VotoId() {
+    }
+
+    public VotoId(Long associado_id, Long pauta_id) {
+        this.associado_id = associado_id;
+        this.pauta_id = pauta_id;
+    }
+
+    public Long getAssociado_id() {
+        return associado_id;
+    }
+
+    public void setAssociado_id(Long associado_id) {
+        this.associado_id = associado_id;
+    }
+
+    public Long getPauta_id() {
+        return pauta_id;
+    }
+
+    public void setPauta_id(Long pauta_id) {
+        this.pauta_id = pauta_id;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

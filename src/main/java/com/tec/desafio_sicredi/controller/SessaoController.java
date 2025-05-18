@@ -24,7 +24,7 @@ public class SessaoController {
 
         ApiResponse response = new ApiResponse(
                 HttpStatus.CREATED.value(),
-                "Sessão de votação aberta para a pauta" + pauta_id
+                "Sessão de votação aberta para a pauta de código " + pauta_id
         );
 
         return ResponseEntity.status(HttpStatus.CREATED).body(response);

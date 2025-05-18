@@ -35,7 +35,6 @@ public class PautaService {
         PautaDTO pautaDTO = obterPautaById(id);
         pautaDTO.setFechada(true);
         repository.save(mapper.map(pautaDTO, Pauta.class));
-        System.out.println("SESSÃO FECHADA");
 
     }
 

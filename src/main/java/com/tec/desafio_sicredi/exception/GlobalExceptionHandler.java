@@ -1,6 +1,7 @@
 package com.tec.desafio_sicredi.exception;
 
 import com.tec.desafio_sicredi.dto.ApiResponse;
+import com.tec.desafio_sicredi.exception.associado.AssociadoNaoExisteException;
 import com.tec.desafio_sicredi.exception.pauta.PautaExistenteDescricaoException;
 import com.tec.desafio_sicredi.exception.pauta.PautaFechadaException;
 import com.tec.desafio_sicredi.exception.pauta.PautaNaoExistenteException;
@@ -18,6 +19,14 @@ public class GlobalExceptionHandler {
     private ResponseEntity<ApiResponse> buildResponse(HttpStatus status, String message) {
         ApiResponse response = new ApiResponse(status.value(), message);
         return ResponseEntity.status(status).body(response);
+    }
+
+    @ExceptionHandler(AssociadoNaoExisteException.class)
+    @ResponseBody
+    public ResponseEntity<ApiResponse> handleAssociadoNaoExistente(
+            AssociadoNaoExisteException exception
+    ){
+        return buildResponse(HttpStatus.NOT_FOUND, exception.getMessage());
     }
 
     @ExceptionHandler(SessaoJaAbertaPautaException.class)

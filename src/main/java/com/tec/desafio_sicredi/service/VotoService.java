@@ -1,9 +1,10 @@
 package com.tec.desafio_sicredi.service;
 
-import com.tec.desafio_sicredi.dto.VotoDTO;
+import com.tec.desafio_sicredi.dto.voto.PostVotoDto;
+import com.tec.desafio_sicredi.dto.voto.VotoDTO;
 import com.tec.desafio_sicredi.exception.voto.VotoNaoExistentePautaException;
+import com.tec.desafio_sicredi.mapper.MapperPostVotoDto;
 import com.tec.desafio_sicredi.model.voto.Voto;
-import com.tec.desafio_sicredi.repository.PautaRepository;
 import com.tec.desafio_sicredi.repository.VotoRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +22,27 @@ public class VotoService {
     private PautaService pautaService;
 
     @Autowired
+    private AssociadoService associadoService;
+
+    @Autowired
+    private MapperPostVotoDto mapperPostVotoDto;
+
+    @Autowired
+    SessaoService sessaoService;
+
+    @Autowired
     private ModelMapper mapper;
+
+    public void realizarVoto(PostVotoDto postVotoDto){
+
+        sessaoService.verificarSessaoAberta(postVotoDto.getPauta_id());
+
+        Voto voto = mapperPostVotoDto.converterParaEntidade(postVotoDto);
+
+        System.out.println(voto.getA_favor() + voto.getPauta().getDescricao() + voto.getAssociado().getNome());
+
+        repository.save(voto);
+    }
 
     public String obterResultadoVotacaoPauta(Long id_pauta){
 
