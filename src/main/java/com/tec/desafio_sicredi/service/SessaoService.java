@@ -1,6 +1,7 @@
 package com.tec.desafio_sicredi.service;
 
 import com.tec.desafio_sicredi.Sessao;
+import com.tec.desafio_sicredi.exception.sessao.SessaoFechadaException;
 import com.tec.desafio_sicredi.exception.sessao.SessaoJaAbertaPautaException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,7 +25,7 @@ public class SessaoService {
 
         pautaService.validarSePautaAberta(id_pauta);
 
-        if (!verificarSessaoAberta(id_pauta)) {
+        if (!sessoes.stream().anyMatch(s -> Objects.equals(s.getId_pauta(), id_pauta))) {
 
             Sessao sessao = new Sessao(id_pauta);
 
@@ -40,7 +41,14 @@ public class SessaoService {
         }
     }
 
-    public boolean verificarSessaoAberta(Long id_sessao){
-        return sessoes.stream().anyMatch(s -> Objects.equals(s.getId_pauta(), id_sessao));
+
+    public void validaSessaoAberta(Long id_sessao){
+
+        boolean status = sessoes.stream().anyMatch(s -> Objects.equals(s.getId_pauta(), id_sessao));
+
+        if (!status) {
+            throw new SessaoFechadaException("A sessão para essa pauta não está aberta !");
+        }
+
     }
 }

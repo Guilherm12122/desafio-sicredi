@@ -18,7 +18,6 @@ public class VotoController {
     @Autowired
     private VotoService votoService;
 
-
     @PostMapping
     public ResponseEntity<ApiResponse> postVoto(@RequestBody @Valid PostVotoDto postVotoDto){
 

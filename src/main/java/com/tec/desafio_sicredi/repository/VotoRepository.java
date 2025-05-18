@@ -13,4 +13,8 @@ public interface VotoRepository extends JpaRepository<Voto, VotoId> {
     @Query(value = "SELECT * FROM VOTO WHERE pauta_id = :pauta_id",
             nativeQuery = true)
     Optional<List<Voto>> getVotosByIdPauta(Long pauta_id);
+
+    @Query(value = "SELECT * FROM VOTO WHERE pauta_id = :pauta_id AND associado_id = :associado_id",
+        nativeQuery = true)
+    Optional<Voto> getByAssociadoIdPautaId(Long pauta_id, Long associado_id);
 }

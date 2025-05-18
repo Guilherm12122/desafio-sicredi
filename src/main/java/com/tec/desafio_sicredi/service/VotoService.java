@@ -2,6 +2,7 @@ package com.tec.desafio_sicredi.service;
 
 import com.tec.desafio_sicredi.dto.voto.PostVotoDto;
 import com.tec.desafio_sicredi.dto.voto.VotoDTO;
+import com.tec.desafio_sicredi.exception.voto.AssociadoJaVotouException;
 import com.tec.desafio_sicredi.exception.voto.VotoNaoExistentePautaException;
 import com.tec.desafio_sicredi.mapper.MapperPostVotoDto;
 import com.tec.desafio_sicredi.model.voto.Voto;
@@ -35,13 +36,21 @@ public class VotoService {
 
     public void realizarVoto(PostVotoDto postVotoDto){
 
-        sessaoService.verificarSessaoAberta(postVotoDto.getPauta_id());
+        sessaoService.validaSessaoAberta(postVotoDto.getPauta_id());
 
-        Voto voto = mapperPostVotoDto.converterParaEntidade(postVotoDto);
+        if (verificarSeExisteVotoParaIds(postVotoDto.getPauta_id(), postVotoDto.getAssociado_id())) {
 
-        System.out.println(voto.getA_favor() + voto.getPauta().getDescricao() + voto.getAssociado().getNome());
+            Voto voto = mapperPostVotoDto.converterParaEntidade(postVotoDto);
 
-        repository.save(voto);
+            repository.save(voto);
+            
+        } else {
+            throw new AssociadoJaVotouException("Esse associado já votou para essa pauta !");
+        }
+    }
+
+    public boolean verificarSeExisteVotoParaIds(Long id_pauta, Long id_associado){
+        return repository.getByAssociadoIdPautaId(id_pauta, id_associado).isEmpty();
     }
 
     public String obterResultadoVotacaoPauta(Long id_pauta){
